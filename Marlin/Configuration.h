@@ -482,8 +482,8 @@
 #define PID_K1 0.95      // Smoothing factor within any PID loop
 
 #if ENABLED(PIDTEMP)
-  #define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
-  #define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
+  //#define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
+  //#define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
   //#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
                                   // Set/get with gcode: M301 E[extruder number, 0-2]
   #if ENABLED(PID_PARAMS_PER_HOTEND)
@@ -493,11 +493,10 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.0 }
     #define DEFAULT_Kd_LIST { 114.00, 112.0 }
   #else
-  // Creality Ender-3 - M303 E0 S200 C8 U1
-  #define DEFAULT_Kp 21.82
-  #define DEFAULT_Ki 1.96
-  #define DEFAULT_Kd 60.77
-
+    // Creality Ender-3 - M303 E0 S200 C8 U1
+    #define DEFAULT_Kp 21.82
+    #define DEFAULT_Ki 1.96
+    #define DEFAULT_Kd 60.77
   #endif
 #endif // PIDTEMP
 
@@ -536,15 +535,15 @@
 
   //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-  //#define DEFAULT_bedKp 10.00
-  //#define DEFAULT_bedKi .023
-  //#define DEFAULT_bedKd 305.4
+  #define DEFAULT_bedKp 10.00
+  #define DEFAULT_bedKi .023
+  #define DEFAULT_bedKd 305.4
 
-  // Creality Ender-3
+  //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
   //from pidautotune
-  #define DEFAULT_bedKp 578.18
-  #define DEFAULT_bedKi 112.09
-  #define DEFAULT_bedKd 745.57
+  //#define DEFAULT_bedKp 97.1
+  //#define DEFAULT_bedKi 1.41
+  //#define DEFAULT_bedKd 1675.16
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -792,9 +791,9 @@
  */
 #define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
-  #define DEFAULT_XJERK  8.0
-  #define DEFAULT_YJERK  8.0
-  #define DEFAULT_ZJERK  0.3
+  #define DEFAULT_XJERK 8.0
+  #define DEFAULT_YJERK 8.0
+  #define DEFAULT_ZJERK 0.3
 
   #define TRAVEL_EXTRA_XYJERK 5.0     // Additional jerk allowance for all travel moves
 
@@ -878,7 +877,7 @@
  * Use G29 repeatedly, adjusting the Z height at each point with movement commands
  * or (with LCD_BED_LEVELING) the LCD controller.
  */
-#define PROBE_MANUALLY
+//#define PROBE_MANUALLY
 //#define MANUAL_PROBE_START_Z 0.2
 
 /**
@@ -989,7 +988,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 0, 0, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { 10, 10, 0 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1107,7 +1106,7 @@
 
 // @section homing
 
-//#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed
+#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed
 
 //#define UNKNOWN_Z_NO_RAISE      // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
 
@@ -1239,13 +1238,13 @@
 //#define AUTO_BED_LEVELING_LINEAR
 //#define AUTO_BED_LEVELING_BILINEAR
 //#define AUTO_BED_LEVELING_UBL
-#define MESH_BED_LEVELING
+//#define MESH_BED_LEVELING
 
 /**
  * Normally G28 leaves leveling disabled on completion. Enable
  * this option to have G28 restore the prior leveling state.
  */
-#define RESTORE_LEVELING_AFTER_G28
+//#define RESTORE_LEVELING_AFTER_G28
 
 /**
  * Enable detailed logging of G28, G29, M48, etc.
@@ -1344,7 +1343,7 @@
  * Add a bed leveling sub-menu for ABL or MBL.
  * Include a guided procedure if manual probing is enabled.
  */
-#define LCD_BED_LEVELING
+//#define LCD_BED_LEVELING
 
 #if ENABLED(LCD_BED_LEVELING)
   #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis.
@@ -1397,7 +1396,7 @@
 
 // Homing speeds (mm/min)
 #define HOMING_FEEDRATE_XY (25*60)
-#define HOMING_FEEDRATE_Z  (5*60)
+#define HOMING_FEEDRATE_Z  (4*60)
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
@@ -1507,7 +1506,7 @@
 // Preheat Constants
 #define PREHEAT_1_LABEL       "PLA"
 #define PREHEAT_1_TEMP_HOTEND 180
-#define PREHEAT_1_TEMP_BED     45
+#define PREHEAT_1_TEMP_BED     50
 #define PREHEAT_1_FAN_SPEED   255 // Value from 0 to 255
 
 #define PREHEAT_2_LABEL       "ABS"
@@ -1526,7 +1525,7 @@
  *    P1  Raise the nozzle always to Z-park height.
  *    P2  Raise the nozzle by Z-park amount, limited to Z_MAX_POS.
  */
-//#define NOZZLE_PARK_FEATURE
+#define NOZZLE_PARK_FEATURE
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
@@ -1713,7 +1712,7 @@
  *
  * :['JAPANESE', 'WESTERN', 'CYRILLIC']
  */
-//#define DISPLAY_CHARSET_HD44780 WESTERN
+//#define DISPLAY_CHARSET_HD44780 JAPANESE
 
 /**
  * Info Screen Style (0:Classic, 1:Průša)
