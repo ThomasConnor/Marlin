@@ -338,6 +338,7 @@
 #define BOARD_FLY_MINI                4045  // FLY MINI (STM32F103RCT6)
 #define BOARD_FLSUN_HISPEED           4046  // FLSUN HiSpeedV1 (STM32F103VET6)
 #define BOARD_BEAST                   4047  // STM32F103RET6 Libmaple-based controller
+#define BOARD_MINGDA_MPX_ARM_MINI     4048  // STM32F103ZET6 Mingda MD-16
 
 //
 // ARM Cortex-M4F
@@ -414,5 +415,3 @@
 
 #define _MB_1(B)  (defined(BOARD_##B) && MOTHERBOARD==BOARD_##B)
 #define MB(V...)  DO(MB,||,V)
-
-#define IS_MELZI MB(MELZI, MELZI_CREALITY, MELZI_MAKR3D, MELZI_MALYAN, MELZI_TRONXY, MELZI_V2)
