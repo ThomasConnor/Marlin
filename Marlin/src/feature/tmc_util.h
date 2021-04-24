@@ -32,8 +32,8 @@
 #define CHOPPER_DEFAULT_12V  { 3, -1, 1 }
 #define CHOPPER_DEFAULT_19V  { 4,  1, 1 }
 #define CHOPPER_DEFAULT_24V  { 4,  2, 1 }
-#define CHOPPER_DEFAULT_36V  { 5,  2, 4 }
 #define CHOPPER_PRUSAMK3_24V { 3, -2, 6 }
+#define CHOPPER_DEFAULT_36V  { 5,  2, 4 }
 #define CHOPPER_MARLIN_119   { 5,  2, 3 }
 #define CHOPPER_09STEP_24V   { 3, -1, 5 }
 
