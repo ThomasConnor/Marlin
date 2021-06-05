@@ -317,7 +317,7 @@ void disable_e_steppers() {
 void disable_e_stepper(const uint8_t e) {
   #define _CASE_DIS_E(N) case N: DISABLE_AXIS_E##N(); break;
   switch (e) {
-    REPEAT(EXTRUDERS, _CASE_DIS_E)
+    REPEAT(E_STEPPERS, _CASE_DIS_E)
   }
 }
 
@@ -1073,11 +1073,17 @@ void setup() {
   while (!MYSERIAL1.connected() && PENDING(millis(), serial_connect_timeout)) { /*nada*/ }
 
   #if HAS_MULTI_SERIAL && !HAS_ETHERNET
-    MYSERIAL2.begin(BAUDRATE);
+    #ifndef BAUDRATE_2
+      #define BAUDRATE_2 BAUDRATE
+    #endif
+    MYSERIAL2.begin(BAUDRATE_2);
     serial_connect_timeout = millis() + 1000UL;
     while (!MYSERIAL2.connected() && PENDING(millis(), serial_connect_timeout)) { /*nada*/ }
     #ifdef SERIAL_PORT_3
-      MYSERIAL3.begin(BAUDRATE);
+      #ifndef BAUDRATE_3
+        #define BAUDRATE_3 BAUDRATE
+      #endif
+      MYSERIAL3.begin(BAUDRATE_3);
       serial_connect_timeout = millis() + 1000UL;
       while (!MYSERIAL3.connected() && PENDING(millis(), serial_connect_timeout)) { /*nada*/ }
     #endif
@@ -1417,10 +1423,7 @@ void setup() {
   #endif
 
   #if HAS_PRUSA_MMU1
-    SETUP_LOG("Prusa MMU1");
-    SET_OUTPUT(E_MUX0_PIN);
-    SET_OUTPUT(E_MUX1_PIN);
-    SET_OUTPUT(E_MUX2_PIN);
+    SETUP_RUN(mmu_init());
   #endif
 
   #if HAS_FANMUX
@@ -1488,7 +1491,7 @@ void setup() {
   #endif
 
   #if HAS_TRINAMIC_CONFIG && DISABLED(PSU_DEFAULT_OFF)
-    SETUP_RUN(test_tmc_connection(true, true, true, true));
+    SETUP_RUN(test_tmc_connection());
   #endif
 
   #if HAS_DRIVER_SAFE_POWER_PROTECT
